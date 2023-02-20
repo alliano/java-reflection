@@ -11,11 +11,18 @@ refrensi : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lan
 Untuk membuat Class<T> bisa dilakukan dengan beberapa cara
 Cara ke 1 dengan menggunakan kata kunci .class setelah nama java class, Interface, Enum nya
 Misalnya Babi.class, Anjing.class, Kontl.class Repository.class, Gender.class, Role.class
+``` Java
+Class<Repository> classRepository = Repository.class
+```
 Cara ke 2 dengan menggunkan static method yang ada pada Object Class<?> yaitu method forClass(base package)
 Misalnya Class.forClass("com.java.reflection.body.Kontol")
+``` java
+Class<?> classKontl = Class.forClass("com.java.reflection.body.Kontl");
+```
+
 Atau kita juga bisa mengambil Class<T> dari object, dengan menggunakan getClass();
 Misal kita punya Class Babi.java maka kita bisa mendapatkan Class nya dengan cara meng inisialisasi kemudian mengambil class nya dengan menggunakan getClass();
 ```java
 Babi babi = new babi();
-Calss<Babi> babiClass = babi.getClass() 
+Calss<Babi> babiClass = babi.getClass(); 
 ```

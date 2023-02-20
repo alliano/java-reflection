@@ -11,7 +11,7 @@ refrensi : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lan
 Untuk membuat Class<T> bisa dilakukan dengan beberapa cara
 Cara ke 1 dengan menggunakan kata kunci .class setelah nama java class, Interface, Enum nya
 Misalnya Babi.class, Anjing.class, Kontl.class Repository.class, Gender.class, Role.class
-``` Java
+``` java
 Class<Repository> classRepository = Repository.class
 ```
 Cara ke 2 dengan menggunkan static method yang ada pada Object Class<?> yaitu method forClass(base package)

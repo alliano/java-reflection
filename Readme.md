@@ -55,5 +55,8 @@ public class ReflectionTest {
     
 }
 ```
+# Class<T> Method
 
-# 
+Calss<T> memiliki banyak sekali method
+contoh nya seperi method untk mendapatkan semua field (property pada suatu class), method, constructor, super class, interface, dan masih banyak lagi
+semua detail dari method nya bisa kita lihat pada java docs nya https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html

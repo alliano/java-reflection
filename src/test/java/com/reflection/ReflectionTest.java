@@ -22,5 +22,7 @@ public class ReflectionTest {
         System.out.println(personClass2.getSimpleName()+ " Cara ke 2");
         System.out.println(personClass3.getSimpleName()+ " Cara ke 3");
     }
+
+    
     
 }

@@ -17,4 +17,4 @@ Atau kita juga bisa mengambil Class<T> dari object, dengan menggunakan getClass(
 Misal kita punya Class Babi.java maka kita bisa mendapatkan Class nya dengan cara meng inisialisasi kemudian mengambil class nya dengan menggunakan getClass();
 ```java
 Babi babi = new babi();
-Calss<Babi> babiClass = babi.getClass()```
+Calss<Babi> babiClass = babi.getClass() ```

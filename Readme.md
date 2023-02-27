@@ -115,3 +115,55 @@ Misal kitas sudah membuat Field, lalu kita memiliki Object Person1 lalu kita ing
         System.out.println(firstNameVal);
     }
 ```
+
+# Method
+
+Selain Field, kita juga bisa mendapatkan method yang tersedia pada Class<T>
+Cara mendapatkanya pun sama seperti Field kita bisa menggunakan getMethods() atau getDeclaredMethods()
+getMethod(name), getDeclaredMethod(name)
+Method juga banyak memiliki method yang bisa kita gunakan unutuk mendapatkan informasi method itu sendiri seperti return value, nama method, annotation yang dimiliki method tersebut, parameter dan lain lain.
+https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflec/Method.html
+
+example : 
+``` java
+    @Test
+    public void testMethod() {
+
+        Class<? extends Person> personCalass = Person.class;
+
+        Method[] methods = personCalass.getDeclaredMethods();
+
+        for (Method method : methods) {
+            System.out.println(method.getName());
+            System.out.println(method.getReturnType().getSimpleName());
+            System.out.println(Arrays.toString(method.getParameterTypes()));
+            System.out.println(Arrays.toString(method.getExceptionTypes()));
+            System.out.println("------------------------");
+        }
+
+    }
+```
+
+# Memanggil Method Object
+
+Method bisa digunakan untuk memanggil method pada sebuah object
+Hampir mirip dengan Field yang bisa digunakan untuk mengambil atau mengubah Field didalam Object
+Unutk memanggil Method object, kita bisa menggunakan method invoke(Object, parameter)
+
+example :
+``` java
+    @Test
+    public void testGetMethodValue() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+        
+        Class<? extends Person> personClass = Person.class;
+
+        Method firstName = personClass.getDeclaredMethod("getFristname");
+
+        Person person = new Person("alliano", "Alfarez");
+
+        String firstNameValue = (String) firstName.invoke(person);
+
+        System.out.println(firstNameValue);
+
+    }
+```

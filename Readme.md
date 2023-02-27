@@ -10,14 +10,14 @@ refrensi : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lan
 
 Untuk membuat Class<T> bisa dilakukan dengan beberapa cara
 Cara ke 1 dengan menggunakan kata kunci .class setelah nama java class, Interface, Enum nya
-Misalnya Babi.class, Anjing.class, Kontl.class Repository.class, Gender.class, Role.class
+Misalnya Babi.class, Anjing.class, Repository.class, Gender.class, Role.class
 ``` java
 Class<Repository> classRepository = Repository.class
 ```
 Cara ke 2 dengan menggunkan static method yang ada pada Object Class<?> yaitu method forClass(base package)
-Misalnya Class.forClass("com.java.reflection.body.Kontol")
+Misalnya Class.forClass("com.java.reflection.body.Person")
 ``` java
-Class<?> classKontl = Class.forClass("com.java.reflection.body.Kontl");
+Class<?> classKontl = Class.forClass("com.java.reflection.body.Person");
 ```
 Atau kita juga bisa mengambil Class<T> dari object, dengan menggunakan getClass();
 Misal kita punya Class Babi.java maka kita bisa mendapatkan Class nya dengan cara meng inisialisasi kemudian mengambil class nya dengan menggunakan getClass();
@@ -86,3 +86,32 @@ contoh :
 ```
 
 ref : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflec/Field.html
+
+# Menggambil atau Mengubah Field Object
+
+Field memiliki kemampuan untuk mengambil atau mengubah field dari object yang ada 
+Misal kitas sudah membuat Field, lalu kita memiliki Object Person1 lalu kita ingin mengambil nilai field tersebut atau mengubahnya kita bisa menggunakan Method set dan get pada Field
+
+``` java
+    @Test
+    public void testChangeFieldObject() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+
+        // buat obeject Person
+        Person person = new Person("alliano", "alfarez");
+
+        // buat class reflection
+        Class<? extends Person> personClass = Person.class;
+
+        // ambil field firstname dari class reflection yang kita buat
+        Field firstName = personClass.getDeclaredField("fristname");
+
+        // berhubung field firstname itu memiliki access modifier private maka kita harus setAccessible(true)
+        // agar kita bisa operasikan
+        firstName.setAccessible(true);
+
+        // 
+        String firstNameVal = (String)firstName.get(person);
+
+        System.out.println(firstNameVal);
+    }
+```

@@ -64,14 +64,35 @@ public class ReflectionTest {
     public void testField() {
 
         Class<? extends Person> person = Person.class;
-
+        // ini kita mengambil semua field/ property yang dimiliki oleh class Person tampa memperdulikan visibility nya
         Field[] filds = person.getDeclaredFields();
 
         for (Field field : filds) {
+            // menampilkan nama field yang dimiliki class Person dan tipe data field nya
             System.out.println(field.getName()+" type : "+field.getType().getSimpleName());
         }
     }
 
+    @Test
+    public void testChangeFieldObject() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 
+        // buat obeject Person
+        Person person = new Person("alliano", "alfarez");
+
+        // buat class reflection
+        Class<? extends Person> personClass = Person.class;
+
+        // ambil field firstname dari class reflection yang kita buat
+        Field firstName = personClass.getDeclaredField("fristname");
+
+        // berhubung field firstname itu memiliki access modifier private maka kita harus setAccessible(true)
+        // agar kita bisa operasikan
+        firstName.setAccessible(true);
+
+        // 
+        String firstNameVal = (String)firstName.get(person);
+
+        System.out.println(firstNameVal);
+    }
     
 }

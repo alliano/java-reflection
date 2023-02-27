@@ -60,3 +60,29 @@ public class ReflectionTest {
 Calss<T> memiliki banyak sekali method
 contoh nya seperi method untk mendapatkan semua field (property pada suatu class), method, constructor, super class, interface, dan masih banyak lagi
 semua detail dari method nya bisa kita lihat pada java docs nya https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html
+
+# Fields
+
+Field merupakan representasi dari java Field yang terdapat pada java class 
+Untuk mendapatkan public field kita bisa menggunakan getFields();
+dan jika ingin mendapatkan semua field tampa memperdulikan visibility nya bisa pake getDeclaredFileds();
+Atau kita bisa juga mendapatkan field berdasarkan nama field menggunakan method getField(name) atau getDeclaredField(name);
+Field sama seperti Class<T>, memiliki banyak sekali method yang bisa kita gunakan untuk melihat detail dari field tersebut, seperti tipe data, nama field, annotasion, dan lain lain.
+
+contoh : 
+``` java
+    @Test
+    public void testField() {
+
+        Class<? extends Person> person = Person.class;
+        // ini kita mengambil semua field/ property yang dimiliki oleh class Person tampa memperdulikan visibility nya
+        Field[] filds = person.getDeclaredFields();
+
+        for (Field field : filds) {
+            // menampilkan nama field yang dimiliki class Person dan tipe data field nya
+            System.out.println(field.getName()+" type : "+field.getType().getSimpleName());
+        }
+    }
+```
+
+ref : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflec/Field.html

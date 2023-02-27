@@ -1,5 +1,8 @@
 package com.reflection;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class ReflectionTest {
@@ -23,6 +26,52 @@ public class ReflectionTest {
         System.out.println(personClass3.getSimpleName()+ " Cara ke 3");
     }
 
-    
+    @Test
+    public void testReflectionMethod() throws NoSuchMethodException, SecurityException {
+
+        Class<? extends Person> personClass = Person.class;
+
+        // ini untuk mendapatkan super class nya 
+        System.out.println(personClass.getSuperclass());
+
+        //jika class person meng implementasi Interface kita bisa gunkan untuk mendapatkan impement 
+        // interface nya menggunkan getInterfaces()
+        System.out.println(Arrays.toString(personClass.getInterfaces()));
+        // ini akan mengambil semua constructor pada class person tampa menghiraukan visibility nya 
+        // atau access modifier nya jadi semua construcror entah itu public atau private atau protected 
+        // akan di ambil semua
+        //
+        System.out.println(personClass.getDeclaredConstructor());
+
+        // ini akan mengambil semua method pada class person tampa menghiraukan 
+        // visibility nya atau aksess modifier nya jadi semua mehtod public, protected, private akan di ambil semua
+        System.out.println(Arrays.toString(personClass.getDeclaredMethods()));
+
+        // ini akan mengambil semua fields (property pada suatu class) tampa menghiraukan access modifiernya
+        System.out.println(Arrays.toString(personClass.getDeclaredFields()));
+        
+        // ini akan mengambil package name nya atau base package pada class Person
+        System.out.println(personClass.getPackageName());
+
+        // ini untuk mendapatkan nama Class nya
+        System.out.println(personClass.getName());
+
+        // untuk mendapatkan modifier nya
+        System.out.println(personClass.getModifiers());
+    }
+
+    @Test
+    public void testField() {
+
+        Class<? extends Person> person = Person.class;
+
+        Field[] filds = person.getDeclaredFields();
+
+        for (Field field : filds) {
+            System.out.println(field.getName()+" type : "+field.getType().getSimpleName());
+        }
+    }
+
+
     
 }

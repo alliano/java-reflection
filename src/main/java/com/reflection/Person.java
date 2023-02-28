@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor @NoArgsConstructor
 public class Person {
     
-    public String fristname;
+    private String fristname;
 
-    public String lastName;
+    private String lastName;
 }

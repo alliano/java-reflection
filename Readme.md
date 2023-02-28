@@ -167,3 +167,147 @@ example :
 
     }
 ```
+
+# Parameter
+
+Paramter merupakan representasi dari Java parameter pada java method
+Cara mendapatkan parameter, kita bisa mengambilnya daru method, karna memang parameter hanya terdapat pada method dan constrtuctor 
+Parameter memiliki banyak sekali method, seperti untuk mendapatkan tipe parameter, nama parameter, dan lain-lain.
+ref : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/reflec/Parameter.html
+
+example :
+``` java
+    @Test
+    public void testGetParameter() {
+
+        Class<? extends Person> personClass = Person.class;
+
+        Method[] methods = personClass.getDeclaredMethods();
+
+        for (Method method : methods) {
+            System.out.println("Method name : "+method.getName());
+            Parameter[] parameters = method.getParameters();
+            for (Parameter parameter : parameters) {
+                System.out.println("Paramter name : "+ parameter.getName());
+                System.out.println("Paramter type : "+ parameter.getType().getSimpleName());
+                System.out.println("----------------------------");
+            }
+        }
+    }
+
+```
+
+# Memanggil Method Object dengan Parameter
+
+Sama seperti method tampa parameter 
+kita bisa memanggil method yang memiliki parameter pada java reflection
+example : 
+``` java
+    @Test
+    public void testIvokeMethodWithParamter() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+
+        Class<? extends Person> personClass = Person.class;
+
+        Person person = new Person("Alliano", "Alfarez");
+       
+        // untuk mendapatkan methdo yang memiliki parameter disini kita harus ikutkan juga tipe 
+        // dari parameter nya dalam konteks ini tipe paramter nya String dan hanya meiliki 1 parameter
+        Method setFristName = personClass.getDeclaredMethod("setFristname", String.class);
+
+        // disini Alliano akan di ubah dengan kata Uchiha
+        setFristName.invoke(person, "Uchiha");
+
+        System.out.println(person.getFristname());
+    }
+```
+
+# Constructor<T>
+
+Constructor<T> merupakan representasi dari Java Constructor pada java class
+Constructor<T> ini mirip dengan method, yang mana constructor memiliki parameter
+Untuk membuat Constructor kita mendapatkanya melalui Class<T>
+Constructor merupakan tipedata generic mengikuti tipe data dari Class<T> nya
+ref : https://docs.oracle.com/java/javase/11/dosc/api/java.base/java/lang/reflec/Constructor.html
+
+example : 
+``` java
+    @Test
+    public void testGetConstructor() {
+
+        Class<? extends Person> personClass = Person.class;
+
+        Constructor<?>[] construcors = personClass.getDeclaredConstructors();
+
+        for (Constructor<? extends Object> constructor : construcors) {
+            Parameter[] parameters = constructor.getParameters();
+            for (Parameter parameter : parameters) {
+                System.out.println("Constructor name : "+constructor.getName());
+                System.out.println("Parameter name : "+parameter.getName());
+                System.out.println("Paramter type : "+parameter.getType().getSimpleName());
+                System.out.println("Parameter modifier : "+parameter.getModifiers());
+                System.out.println("-------------------------");
+            }
+        }
+    }
+```
+
+# Membuat Object dengan Constructor
+
+Kita sudah tau bahwa Constructor merupakan method yang di eksekusi ketika Object pertamakali dibuat
+Dengan menggunakan constructor, kita bisa juga membuat object baru
+Caranya dengan menggunakan method newInstance(parameter)
+
+example : 
+``` java
+    @Test
+    public void testCreateObjectConstructor() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+
+        Class<? extends Person> personClass = Person.class;
+
+        // mengambil constructor yang tidak memiliki parameter
+        Constructor<? extends Person> constructor = personClass.getConstructor();
+
+        // mengambil constructor yang memiliki 2 parameter
+        Constructor<? extends Person> constructorWithParameters = personClass.getConstructor(String.class, String.class);
+
+        // membuat Object Person dengan tampa parameter pada constructor nya (java reflection) 
+        // ini sebenarnya sama dengan new Person();
+        Person personNoParam = (Person) constructor.newInstance();
+
+        // membuat object person dengan 2 parameter pada constructor nya (java reflection)
+        // ini sebenarnya sama dengan new Person("Alliano", "Alfarez")
+        Person personWithParam = (Person) constructorWithParameters.newInstance("Alliano", "alfarez");
+
+        System.out.println("firstname : "+personNoParam.getFristname());
+
+        System.out.println("firstname : "+personWithParam.getFristname());
+    }
+```
+
+# Super Class 
+
+Dengan menggunakan java reflection, kita bisa mengetahui super class dari sebuah java Class 
+Ada methoh getSuperClass() pada Class<T> untuk mendapatkan super class nya 
+Perlu diingat, bahwa saat kita membuat Class, jika kita menambahkan super class, secara otomatis super class nya adalah java.lang.Object
+ref : https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Class.html#getSuperclass
+
+example : 
+``` java
+    @Test
+    public void testSuperClass() {
+
+        Class<? extends Person> personClass = Person.class;
+
+        // ini akan menadapatkan super class nya adalah Object karna Class Person yang kita buat tidak
+        // meng extends kelas lain. dan secara default class yang tidak meng extends kelas lain, maka di java
+        // itu artinya meng extens kelas java.lang.Object
+        Class<?> objSuperClass = personClass.getSuperclass();
+
+        System.out.println(objSuperClass);
+
+        // ini akan mendapatkan nilai null karna Object adalah tingkatan yang tertinggi di permograman java
+        Class<?> objSUperClass2 = objSuperClass.getSuperclass();
+
+        System.out.println(objSUperClass2);
+    }
+```
